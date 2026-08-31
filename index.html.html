@@ -1,0 +1,595 @@
+<title>The True Alibi Dossier</title>
+<script>
+document.documentElement.classList.add('js');
+try{
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.documentElement.classList.add('reduced-motion');
+  }
+}catch(e){}
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap');
+
+  :root{
+    --ink:        #0b0807;
+    --ink-2:      #17110f;
+    --ink-3:      #201714;
+    --line:       #3c2b24;
+    --blood:      #7c1522;
+    --blood-2:    #a8283a;
+    --gold:       #b8935a;
+    --gold-bright:#e0c087;
+    --parchment:  #ece1cd;
+    --dim:        #a9998a;
+    --serif-display: 'Cinzel', 'Trajan Pro', Georgia, serif;
+    --serif-body: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } }
+
+  body{
+    margin:0;
+    background: var(--ink);
+    color: var(--parchment);
+    font-family: var(--serif-body);
+    font-size: 19px;
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* film-grain texture, fixed over everything */
+  body::before{
+    content:"";
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    pointer-events: none;
+    opacity: .05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  img{ max-width:100%; }
+
+  .wrap{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  h1,h2,h3{
+    font-family: var(--serif-display);
+    font-weight: 600;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--parchment);
+  }
+
+  .eyebrow{
+    font-family: var(--serif-display);
+    font-size: 12.5px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  a{ color: var(--gold-bright); }
+
+  /* reveal-on-scroll, safe by default */
+  .reveal{ opacity:1; transform:none; transition: opacity .9s ease, transform .9s ease; }
+  html.js:not(.reduced-motion) .reveal{ opacity:0; transform: translateY(26px); }
+  html.js:not(.reduced-motion) .reveal.visible{ opacity:1; transform:none; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 24px 80px;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 38%, rgba(124,21,34,.28), transparent 70%),
+      radial-gradient(ellipse 120% 90% at 50% 100%, rgba(0,0,0,.7), transparent 60%),
+      var(--ink);
+    isolation: isolate;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    box-shadow: inset 0 0 180px 60px #000;
+    pointer-events:none;
+  }
+  .hero-glow{
+    position:absolute; inset:0; z-index:-1;
+    background: radial-gradient(circle at 50% 30%, rgba(216,170,90,.10), transparent 45%);
+    animation: flicker 6s ease-in-out infinite;
+  }
+  html.reduced-motion .hero-glow{ animation:none; }
+  @keyframes flicker{
+    0%,100%{ opacity: 1; }
+    45%{ opacity: .78; }
+    52%{ opacity: .92; }
+    70%{ opacity: .85; }
+  }
+
+  .stamp{
+    display:inline-block;
+    font-family: var(--serif-display);
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--blood-2);
+    border: 1px solid rgba(168,40,58,.55);
+    padding: 7px 16px;
+    border-radius: 2px;
+    transform: rotate(-2deg);
+    margin-bottom: 34px;
+    background: rgba(124,21,34,.08);
+  }
+
+  .hero h1{
+    font-size: clamp(40px, 7.4vw, 78px);
+    letter-spacing: .04em;
+    line-height: 1.06;
+    text-transform: uppercase;
+  }
+  .hero h1 em{
+    display:block;
+    font-style: normal;
+    font-size: .38em;
+    letter-spacing: .3em;
+    color: var(--gold);
+    margin-top: 14px;
+  }
+
+  .hero-sub{
+    max-width: 480px;
+    margin: 22px auto 0;
+    color: var(--dim);
+    font-size: 18px;
+    font-style: italic;
+  }
+
+  .thesis{
+    margin-top: 62px;
+    max-width: 620px;
+    font-family: var(--serif-display);
+    font-weight: 500;
+    font-size: clamp(20px, 3vw, 27px);
+    line-height: 1.5;
+    color: var(--parchment);
+    text-wrap: balance;
+  }
+  .thesis span{ color: var(--gold-bright); }
+
+  .scroll-cue{
+    margin-top: 56px;
+    font-family: var(--serif-display);
+    font-size: 11px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+  html.js:not(.reduced-motion) .scroll-cue{ animation: bob 2.4s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(7px);} }
+
+  /* ---------- SECTION SCAFFOLDING ---------- */
+  section{ padding: 96px 0; position: relative; }
+  .section-head{ text-align:center; margin-bottom: 64px; }
+  .section-head h2{
+    font-size: clamp(26px, 4vw, 36px);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin-top: 14px;
+  }
+  .section-head p{
+    max-width: 560px;
+    margin: 18px auto 0;
+    color: var(--dim);
+    font-size: 18.5px;
+  }
+
+  .intro p{
+    font-size: 20px;
+    color: var(--parchment);
+  }
+  .intro p + p{ margin-top: 18px; }
+
+  /* ---------- CASE FILES ---------- */
+  .files{ display:flex; flex-direction:column; gap: 46px; }
+
+  .file{
+    background: linear-gradient(180deg, var(--ink-2), var(--ink-3));
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 30px;
+    position: relative;
+    box-shadow: 0 24px 50px -30px rgba(0,0,0,.8);
+  }
+  .file::before{
+    content:"";
+    position:absolute; left:0; top: 22px; bottom: 22px; width: 3px;
+    background: linear-gradient(180deg, var(--blood), transparent);
+  }
+
+  .file-mark{ display:flex; flex-direction:column; align-items:center; gap: 14px; }
+  .seal{
+    width: 62px; height: 62px;
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--serif-display);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--gold-bright);
+    background: radial-gradient(circle at 34% 30%, #9b1f2c, var(--blood) 55%, #55101a 100%);
+    box-shadow:
+      inset 0 2px 3px rgba(255,255,255,.18),
+      inset 0 -6px 10px rgba(0,0,0,.55),
+      0 6px 16px -6px rgba(0,0,0,.8);
+    letter-spacing: .02em;
+  }
+  .file-no-label{
+    font-family: var(--serif-display);
+    font-size: 9.5px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-align:center;
+  }
+
+  .tag-label{
+    font-family: var(--serif-display);
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .driver-tag{
+    display:inline-block;
+    font-family: var(--serif-body);
+    font-style: italic;
+    font-size: 19px;
+    color: var(--parchment);
+    margin-bottom: 22px;
+  }
+
+  .file h3{
+    font-size: clamp(23px, 3vw, 29px);
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .file .scene{ color: var(--parchment); font-size: 18.5px; }
+
+  .angle-label{
+    font-family: var(--serif-display);
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--blood-2);
+    margin: 24px 0 8px;
+  }
+  .file .strategy{ color: var(--dim); font-size: 17.5px; }
+
+  .hook-label{ margin-top: 24px; }
+  .hook{
+    margin-top: 8px;
+    padding: 16px 22px;
+    border-left: 2px solid var(--gold);
+    background: rgba(184,147,90,.06);
+    font-style: italic;
+    font-size: 19px;
+    color: var(--gold-bright);
+    font-family: var(--serif-body);
+  }
+
+  @media (max-width: 620px){
+    .file{ grid-template-columns: 1fr; padding: 30px 24px; }
+    .file-mark{ flex-direction:row; }
+  }
+
+  /* ---------- CASE BOARD ---------- */
+  .board-wrap{ background: var(--ink-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .board{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 18px;
+    margin-top: 8px;
+  }
+  .pin{
+    background: var(--ink-3);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--blood);
+    padding: 20px 20px 22px;
+    font-size: 15.5px;
+    color: var(--dim);
+    transform: rotate(var(--r, 0deg));
+  }
+  .pin:nth-child(2n){ --r: .6deg; }
+  .pin:nth-child(3n){ --r: -.7deg; }
+  .pin strong{
+    display:block;
+    font-family: var(--serif-display);
+    font-size: 14.5px;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    color: var(--parchment);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .board-close{
+    max-width: 560px;
+    margin: 44px auto 0;
+    text-align:center;
+    font-size: 19.5px;
+    font-style: italic;
+    color: var(--gold-bright);
+  }
+
+  /* ---------- VERDICT ---------- */
+  .verdict{ text-align:center; }
+  .verdict-card{
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 56px 40px;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--ink-2), var(--ink));
+    position: relative;
+  }
+  .verdict-card::before,
+  .verdict-card::after{
+    content:"";
+    position:absolute; width: 26px; height: 26px;
+    border: 1px solid var(--gold);
+    opacity:.5;
+  }
+  .verdict-card::before{ top: 12px; left: 12px; border-right:none; border-bottom:none; }
+  .verdict-card::after{ bottom: 12px; right: 12px; border-left:none; border-top:none; }
+
+  .quote-mark{
+    font-family: var(--serif-display);
+    font-size: 54px;
+    color: var(--blood-2);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .verdict-line{
+    font-family: var(--serif-display);
+    font-weight: 500;
+    font-size: clamp(21px, 3.4vw, 29px);
+    line-height: 1.5;
+    color: var(--parchment);
+    text-wrap: balance;
+  }
+  .verdict-line + .verdict-line{ color: var(--gold-bright); margin-top: 8px; }
+  .verdict-note{
+    margin-top: 26px;
+    color: var(--dim);
+    font-size: 17.5px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding: 60px 24px 80px;
+    text-align:center;
+    border-top: 1px solid var(--line);
+  }
+  footer .mark{
+    font-family: var(--serif-display);
+    letter-spacing: .3em;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  footer p{
+    color: var(--dim);
+    font-size: 14.5px;
+    margin-top: 12px;
+  }
+</style>
+
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="stamp">AVCC Studio &middot; Concept Deck &middot; Not Yet in Production</div>
+  <h1>The True Alibi<em>Dossier</em></h1>
+  <p class="hero-sub">Seven creative territories, drafted on spec. A demo of how AVCC Studio would build your Halloween campaign.</p>
+  <p class="thesis">The murder gets their attention. <span>What happens between their friends</span> makes them want to play.</p>
+  <div class="scroll-cue">&#8595; Open the File</div>
+</div>
+
+<div class="wrap intro reveal">
+  <section>
+    <div class="section-head">
+      <div class="eyebrow">Case Notes</div>
+      <h2>Why These Seven Files</h2>
+    </div>
+    <p>True Alibi already speaks in red velvet, candlelight, wax seals and elegant French phrasing. That's how you already do it, long before any ad runs. This deck borrows that same visual world and gives it seven different reasons to make a stranger stop scrolling.</p>
+    <p>Each file pairs a psychological driver with a video concept and a hook sharp enough to open a campaign. Test them independently on Meta, then build the strongest performers into a full Halloween push.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <div class="section-head">
+      <div class="eyebrow">Evidence</div>
+      <h2>The Case Files</h2>
+      <p>Seven territories. Seven reasons someone would want in.</p>
+    </div>
+
+    <div class="files">
+
+      <article class="file reveal">
+        <div class="file-mark"><span class="seal">01</span><span class="file-no-label">Dossier</span></div>
+        <div class="file-body">
+          <div class="tag-label">Psychological Driver</div>
+          <div class="driver-tag">Paranoia, friendship dynamics</div>
+          <h3>Your Friends Are Lying</h3>
+          <p class="scene">Friends gather for an elegant Halloween dinner. Each gets a character, a secret, a motive. A normal night turns into suspicion: friends hide information, form alliances, accuse each other, until the murderer turns out to be sitting right at the table.</p>
+          <div class="angle-label">Why It's Strong</div>
+          <p class="strategy">This isn't about solving a murder. It's about friends who suddenly can't trust each other. Viewers instantly picture their own circle: who'd lie best, who'd fool everyone. A fast, personal hook, strong for cold acquisition.</p>
+          <div class="tag-label hook-label">Hook</div>
+          <p class="hook">One of your friends is the murderer. Everyone has something to hide.</p>
+        </div>
+      </article>
+
+      <article class="file reveal">
+        <div class="file-mark"><span class="seal">02</span><span class="file-no-label">Dossier</span></div>
+        <div class="file-body">
+          <div class="tag-label">Psychological Driver</div>
+          <div class="driver-tag">Transformation, anti&#8209;boring</div>
+          <h3>Cancel the Normal Halloween Party</h3>
+          <p class="scene">Opens on a familiar Halloween party: costumes, drinks, music, photos. Fun, but predictable. Then it turns: guests get characters and secrets, a murder happens, accusations fly, and the ordinary party becomes a story everyone is living inside.</p>
+          <div class="angle-label">Why It's Strong</div>
+          <p class="strategy">True Alibi isn't competing with other murder mystery games here. It's competing with the normal Halloween party, which opens the audience to anyone tired of doing the same thing again this year.</p>
+          <div class="tag-label hook-label">Hook</div>
+          <p class="hook">Cancel your normal Halloween party. Costumes, drinks, small talk again?</p>
+        </div>
+      </article>
+
+      <article class="file reveal">
+        <div class="file-mark"><span class="seal">03</span><span class="file-no-label">Dossier</span></div>
+        <div class="file-body">
+          <div class="tag-label">Psychological Driver</div>
+          <div class="driver-tag">Identity, escapism, roleplay</div>
+          <h3>Don't Dress Up. Become Someone Else.</h3>
+          <p class="scene">People prepare for Halloween, but instead of a costume they get a new character: a mysterious heiress, someone with a dangerous past, a blackmailer, a prime suspect. By the dinner table, everyone has a new identity and a reason to lie.</p>
+          <div class="angle-label">Why It's Strong</div>
+          <p class="strategy">Halloween already gives people permission to become someone else. True Alibi deepens that fantasy, turning a party game into a premium roleplay experience with higher perceived value.</p>
+          <div class="tag-label hook-label">Hook</div>
+          <p class="hook">A costume changes how you look. True Alibi changes who you are.</p>
+        </div>
+      </article>
+
+      <article class="file reveal">
+        <div class="file-mark"><span class="seal">04</span><span class="file-no-label">Dossier</span></div>
+        <div class="file-body">
+          <div class="tag-label">Psychological Driver</div>
+          <div class="driver-tag">Challenge, competition, ego</div>
+          <h3>How Well Do You Know Your Friends?</h3>
+          <p class="scene">One friend is lying. Another is hiding something. Someone's story doesn't match the evidence. The viewer becomes the investigator, testing whether they could actually spot who's lying.</p>
+          <div class="angle-label">Why It's Strong</div>
+          <p class="strategy">Turns entertainment into a social challenge. People believe they can read their own friends, and that belief pulls them in before they even click.</p>
+          <div class="tag-label hook-label">Hook</div>
+          <p class="hook">How well do you really know your friends? Would you know if one was lying?</p>
+        </div>
+      </article>
+
+      <article class="file reveal">
+        <div class="file-mark"><span class="seal">05</span><span class="file-no-label">Dossier</span></div>
+        <div class="file-body">
+          <div class="tag-label">Psychological Driver</div>
+          <div class="driver-tag">FOMO, social currency</div>
+          <h3>The Party They'll Talk About Tomorrow</h3>
+          <p class="scene">Opens the morning after Halloween: the group chat still going over who lied best and who nobody suspected. Then a flashback to the night itself, the accusations, the clues, the reveal.</p>
+          <div class="angle-label">Why It's Strong</div>
+          <p class="strategy">Sells the story that outlives the party, not just the party itself. Combines FOMO and social proof, and fits a native, social-first cut better than a polished cinematic one.</p>
+          <div class="tag-label hook-label">Hook</div>
+          <p class="hook">The best parties don't end when everyone goes home.</p>
+        </div>
+      </article>
+
+      <article class="file reveal">
+        <div class="file-mark"><span class="seal">06</span><span class="file-no-label">Dossier</span></div>
+        <div class="file-body">
+          <div class="tag-label">Psychological Driver</div>
+          <div class="driver-tag">Cinematic fantasy, aspiration</div>
+          <h3>Don't Watch the Thriller. Enter It.</h3>
+          <p class="scene">Feels at first like a premium thriller: a mansion, a masked dinner, a murder, suspicious guests. Then the reveal: the people watching are suddenly part of it, and real friends become the characters.</p>
+          <div class="angle-label">Why It's Strong</div>
+          <p class="strategy">The most aspirational file, and the strongest use of AI production in service of a real idea, not just visuals. Instead of watching the story, you step inside it. Best candidate for the hero creative.</p>
+          <div class="tag-label hook-label">Hook</div>
+          <p class="hook">Don't watch the thriller. Enter it.</p>
+        </div>
+      </article>
+
+      <article class="file reveal">
+        <div class="file-mark"><span class="seal">07</span><span class="file-no-label">Dossier</span></div>
+        <div class="file-body">
+          <div class="tag-label">Psychological Driver</div>
+          <div class="driver-tag">Simplicity, removing friction</div>
+          <h3>Even the Host Doesn't Know</h3>
+          <p class="scene">Someone plans a Halloween dinner and invites friends over. It looks like they'll have to run the whole game. Instead, the host gets their own character too, becoming just as much a suspect as everyone else.</p>
+          <div class="angle-label">Why It's Strong</div>
+          <p class="strategy">Removes a real objection: people who love the idea but assume it's complicated to organize. Useful for retargeting, further down the funnel.</p>
+          <div class="tag-label hook-label">Hook</div>
+          <p class="hook">She planned the party. Not the murder.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+</div>
+
+<div class="board-wrap">
+  <div class="wrap">
+    <section>
+      <div class="section-head reveal">
+        <div class="eyebrow">The Investigation Board</div>
+        <h2>How the Files Connect</h2>
+        <p>Not seven versions of one Halloween ad. A testing system built to find seven different reasons to want True Alibi.</p>
+      </div>
+
+      <div class="board reveal">
+        <div class="pin"><strong>01 &middot; Your Friends Are Lying</strong>Tests distrust between friends, the strongest social mechanism.</div>
+        <div class="pin"><strong>02 &middot; Cancel the Normal Party</strong>Tests a broader need: people who've never looked for a murder mystery.</div>
+        <div class="pin"><strong>03 &middot; Become Someone Else</strong>Tests identity, escapism and roleplay.</div>
+        <div class="pin"><strong>04 &middot; Know Your Friends?</strong>Tests ego: the urge to prove you can read people.</div>
+        <div class="pin"><strong>05 &middot; Talk About Tomorrow</strong>Tests FOMO and shared memory.</div>
+        <div class="pin"><strong>06 &middot; Enter the Thriller</strong>Tests cinematic aspiration. Strongest hero creative candidate.</div>
+        <div class="pin"><strong>07 &middot; Even the Host Doesn't Know</strong>Removes the objection of perceived complexity, lower funnel.</div>
+      </div>
+
+      <p class="board-close reveal">Seven visual directions only show what looks good. Seven psychological drivers show what actually sells.</p>
+    </section>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="verdict reveal">
+    <div class="verdict-card">
+      <div class="quote-mark">&ldquo;</div>
+      <p class="verdict-line">The murder gets their attention.</p>
+      <p class="verdict-line">What happens between their friends makes them want to play.</p>
+      <p class="verdict-note">Blood, candles, mansions and masks earn the thumb stop. The sale happens when ordinary friends become characters in the same story, where everyone has a secret and nobody can be fully trusted.</p>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="mark">AVCC Studio</div>
+  <p>Prepared as a concept demonstration. True Alibi has not commissioned this work. August 2026.</p>
+</footer>
+
+<script>
+(function(){
+  if (!document.documentElement.classList.contains('js')) return;
+  if (document.documentElement.classList.contains('reduced-motion')) return;
+  try{
+    var els = document.querySelectorAll('.reveal');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){
+          en.target.classList.add('visible');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    els.forEach(function(el){ io.observe(el); });
+  }catch(e){
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
+  }
+})();
+</script>
