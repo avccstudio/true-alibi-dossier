@@ -296,6 +296,38 @@ try{
     font-family: var(--serif-body);
   }
 
+  /* ---------- VISUAL EXAMPLES ---------- */
+  .visuals{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  .visual-card{
+    background: linear-gradient(180deg, var(--ink-2), var(--ink-3));
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 16px;
+    box-shadow: 0 24px 50px -30px rgba(0,0,0,.8);
+  }
+  .visual-card video{
+    display: block;
+    width: 100%;
+    border-radius: 2px;
+    background: #000;
+  }
+  .visual-caption{
+    margin-top: 14px;
+    font-family: var(--serif-display);
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: center;
+  }
+  @media (max-width: 620px){
+    .visuals{ grid-template-columns: 1fr; }
+  }
+
   @media (max-width: 620px){
     .file{ grid-template-columns: 1fr; padding: 30px 24px; }
     .file-mark{ flex-direction:row; }
@@ -529,6 +561,31 @@ try{
         </div>
       </article>
 
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <div class="section-head reveal">
+      <div class="eyebrow">Reference Footage</div>
+      <h2>Visual Examples</h2>
+      <p>A glimpse of the mood and craft AVCC would carry into production.</p>
+    </div>
+
+    <div class="visuals reveal">
+      <div class="visual-card">
+        <video controls playsinline preload="metadata" poster="assets/visual-example-1.jpg">
+          <source src="assets/visual-example-1.mp4" type="video/mp4">
+        </video>
+        <div class="visual-caption">Example One</div>
+      </div>
+      <div class="visual-card">
+        <video controls playsinline preload="metadata" poster="assets/visual-example-2.jpg">
+          <source src="assets/visual-example-2.mp4" type="video/mp4">
+        </video>
+        <div class="visual-caption">Example Two</div>
+      </div>
     </div>
   </section>
 </div>
